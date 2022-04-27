@@ -31,6 +31,11 @@ namespace P01AplikacjaZawodnicy.Repositories
             }
         }
 
+        public Zawodnik[] Zawodnicy
+        {
+            get { return zawodnicy; }
+        }
+
 
         public ManagerZawodnikow()
         {
