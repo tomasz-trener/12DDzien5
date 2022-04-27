@@ -47,20 +47,35 @@ namespace P01AplikacjaZawodnicy
 
         private void btnWczytaj_Click(object sender, EventArgs e)
         {
+            Odswiez();
+        }
+
+        private void Odswiez()
+        {
             mz = new ManagerZawodnikow(txtSciezka.Text, TypImportu.Loklany);
             Zawodnik[] zawodnicy = mz.WczytajZawodnikow();
-           
-            foreach (var z in zawodnicy)
-                lbDane.Items.Add(z.Imie + " " + z.Nazwisko + " " + z.Kraj);
+
+            //WErsja 1: 
+            // wczytwanie rekord po rekodzie 
+            // UWAGA: nasz listbox przechowuje napisy (stringi) 
+            //foreach (var z in zawodnicy)
+            //lbDane.Items.Add(z.Imie + " " + z.Nazwisko + " " + z.Kraj);
+
+            //Wersja2: 
+            // zastosowanie databinding 
+            lbDane.DataSource = zawodnicy;
+            lbDane.DisplayMember = "Wiersz";
         }
 
         private void lbDane_SelectedIndexChanged(object sender, EventArgs e)
         {
             gbSzczegolyZawodnika.Visible = true;
 
-            int indeks = lbDane.SelectedIndex;
-
-            Zawodnik zaznaczony= mz.Zawodnicy[indeks];
+            // wersja gdy szukamy po indeksie (niebezpieczna ze wzledu np na sorotwanie, filtorwanie )
+            // int indeks = lbDane.SelectedIndex;
+            // Zawodnik zaznaczony= mz.Zawodnicy[indeks];
+            // Ulopszona wersja wykorzystujaca fakt, ze dane sa teraz zbindowanie z listbox 
+            Zawodnik zaznaczony = (Zawodnik)lbDane.SelectedItem;
 
             txtImie.Text = zaznaczony.Imie;
             txtNazwisko.Text = zaznaczony.Nazwisko;
@@ -147,6 +162,47 @@ namespace P01AplikacjaZawodnicy
         {
             if(edycjaAktywna)
                 txtImie.BorderColor = Color.Red;
+        }
+
+        private void btnZapisz_Click(object sender, EventArgs e)
+        {
+            // krok 1 : 
+            // kto jest zaznaczony 
+            // mz.Zawodnicy[2]
+            Zawodnik z = (Zawodnik)lbDane.SelectedItem;
+
+            z.Imie = txtImie.Text;
+            z.Nazwisko = txtNazwisko.Text;
+            z.Kraj = txtKraj.Text;
+            z.DataUrodzenia = dtpDataUrodzenia.Value;
+            z.Waga = Convert.ToInt32(numWaga.Value);
+            z.Wzrost = Convert.ToInt32(numWzrost.Value);
+
+            mz.EdytujZawodnika(z);
+            mz.Zapisz();
+            Odswiez();
+        }
+
+        //private void txtKraj_Validating(object sender, CancelEventArgs e)
+        //{
+        //    if (txtKraj.Text.Length > 3)
+        //    {
+        //        MessageBox.Show("Niepoprawny format kraju");
+        //    }
+        //}
+
+        private void txtKraj_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtKraj.Text.Length > 3)
+            {
+                e.Handled = true;
+                //MessageBox.Show("Niepoprawny format kraju");
+            }
+         }
+
+        private void txtKraj_TextChanged(object sender, EventArgs e)
+        {
+          
         }
 
 

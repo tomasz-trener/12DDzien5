@@ -186,6 +186,33 @@ namespace P01AplikacjaZawodnicy.Repositories
             return suma / liczby.Length;
         }
 
+        public void DodajZawodnika(Zawodnik z)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EdytujZawodnika(Zawodnik zmienionyZawodnik)
+        {
+            //krok 1 :
+            //foreach (var zw in zawodnicy)
+            //    if (zw.Id == z.Id)
+            //        zw = z;
+            for (int i = 0; i < zawodnicy.Length; i++)
+                if (zawodnicy[i].Id == zmienionyZawodnik.Id)
+                    zawodnicy[i] = zmienionyZawodnik;
+        }
+
+        public void Zapisz()
+        {
+            const string naglowek = "id_zawodnika;id_trenera;imie;nazwisko;kraj;data urodzenia;wzrost;waga";
+
+            string[] wiersze = new string[zawodnicy.Length + 1];
+            wiersze[0] = naglowek;
+            for (int i = 0; i < zawodnicy.Length; i++)
+                wiersze[i + 1] = zawodnicy[i].LiniaPliku;
+
+            File.WriteAllLines(sciezka, wiersze);
+        }
 
     }
 }
