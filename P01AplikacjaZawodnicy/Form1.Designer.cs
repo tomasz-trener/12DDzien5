@@ -33,21 +33,23 @@
             this.txtSciezka = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbSzczegolyZawodnika = new System.Windows.Forms.GroupBox();
-            this.txtImie = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtNazwisko = new System.Windows.Forms.TextBox();
+            this.txtImie = new P01AplikacjaZawodnicy.Dodatki.ExTextBox();
+            this.numWaga = new System.Windows.Forms.NumericUpDown();
+            this.numWzrost = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtKraj = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtNazwisko = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtDataUrodzenia = new System.Windows.Forms.TextBox();
             this.dtpDataUrodzenia = new System.Windows.Forms.DateTimePicker();
-            this.numWzrost = new System.Windows.Forms.NumericUpDown();
-            this.numWaga = new System.Windows.Forms.NumericUpDown();
+            this.btnEdytuj = new System.Windows.Forms.Button();
             this.gbSzczegolyZawodnika.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numWzrost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWaga)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWzrost)).BeginInit();
             this.SuspendLayout();
             // 
             // lbDane
@@ -88,9 +90,9 @@
             // 
             // gbSzczegolyZawodnika
             // 
+            this.gbSzczegolyZawodnika.Controls.Add(this.txtImie);
             this.gbSzczegolyZawodnika.Controls.Add(this.numWaga);
             this.gbSzczegolyZawodnika.Controls.Add(this.numWzrost);
-            this.gbSzczegolyZawodnika.Controls.Add(this.dtpDataUrodzenia);
             this.gbSzczegolyZawodnika.Controls.Add(this.label7);
             this.gbSzczegolyZawodnika.Controls.Add(this.label6);
             this.gbSzczegolyZawodnika.Controls.Add(this.label5);
@@ -99,7 +101,8 @@
             this.gbSzczegolyZawodnika.Controls.Add(this.label3);
             this.gbSzczegolyZawodnika.Controls.Add(this.txtNazwisko);
             this.gbSzczegolyZawodnika.Controls.Add(this.label2);
-            this.gbSzczegolyZawodnika.Controls.Add(this.txtImie);
+            this.gbSzczegolyZawodnika.Controls.Add(this.txtDataUrodzenia);
+            this.gbSzczegolyZawodnika.Controls.Add(this.dtpDataUrodzenia);
             this.gbSzczegolyZawodnika.Location = new System.Drawing.Point(329, 46);
             this.gbSzczegolyZawodnika.Name = "gbSzczegolyZawodnika";
             this.gbSzczegolyZawodnika.Size = new System.Drawing.Size(220, 277);
@@ -110,35 +113,72 @@
             // 
             // txtImie
             // 
+            this.txtImie.BorderColor = System.Drawing.Color.Blue;
             this.txtImie.Location = new System.Drawing.Point(10, 37);
             this.txtImie.Name = "txtImie";
+            this.txtImie.ReadOnly = true;
             this.txtImie.Size = new System.Drawing.Size(188, 20);
-            this.txtImie.TabIndex = 0;
+            this.txtImie.TabIndex = 16;
+            this.txtImie.TextChanged += new System.EventHandler(this.txtImie_TextChanged);
             // 
-            // label2
+            // numWaga
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Imie";
+            this.numWaga.Location = new System.Drawing.Point(10, 251);
+            this.numWaga.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numWaga.Name = "numWaga";
+            this.numWaga.ReadOnly = true;
+            this.numWaga.Size = new System.Drawing.Size(188, 20);
+            this.numWaga.TabIndex = 14;
             // 
-            // label3
+            // numWzrost
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 64);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Nazwisko";
+            this.numWzrost.InterceptArrowKeys = false;
+            this.numWzrost.Location = new System.Drawing.Point(10, 207);
+            this.numWzrost.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numWzrost.Name = "numWzrost";
+            this.numWzrost.ReadOnly = true;
+            this.numWzrost.Size = new System.Drawing.Size(188, 20);
+            this.numWzrost.TabIndex = 13;
+            this.numWzrost.Value = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             // 
-            // txtNazwisko
+            // label7
             // 
-            this.txtNazwisko.Location = new System.Drawing.Point(10, 80);
-            this.txtNazwisko.Name = "txtNazwisko";
-            this.txtNazwisko.Size = new System.Drawing.Size(188, 20);
-            this.txtNazwisko.TabIndex = 2;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 235);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Waga";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 190);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Wzrost";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 151);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Data Urodzenia";
             // 
             // label4
             // 
@@ -153,35 +193,43 @@
             // 
             this.txtKraj.Location = new System.Drawing.Point(10, 124);
             this.txtKraj.Name = "txtKraj";
+            this.txtKraj.ReadOnly = true;
             this.txtKraj.Size = new System.Drawing.Size(188, 20);
             this.txtKraj.TabIndex = 4;
             // 
-            // label5
+            // label3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 151);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Data Urodzenia";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 64);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Nazwisko";
             // 
-            // label6
+            // txtNazwisko
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 190);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Wzrost";
+            this.txtNazwisko.Location = new System.Drawing.Point(10, 80);
+            this.txtNazwisko.Name = "txtNazwisko";
+            this.txtNazwisko.ReadOnly = true;
+            this.txtNazwisko.Size = new System.Drawing.Size(188, 20);
+            this.txtNazwisko.TabIndex = 2;
             // 
-            // label7
+            // label2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 235);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Waga";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Imie";
+            // 
+            // txtDataUrodzenia
+            // 
+            this.txtDataUrodzenia.Location = new System.Drawing.Point(10, 167);
+            this.txtDataUrodzenia.Name = "txtDataUrodzenia";
+            this.txtDataUrodzenia.ReadOnly = true;
+            this.txtDataUrodzenia.Size = new System.Drawing.Size(188, 20);
+            this.txtDataUrodzenia.TabIndex = 15;
             // 
             // dtpDataUrodzenia
             // 
@@ -191,41 +239,34 @@
             this.dtpDataUrodzenia.Size = new System.Drawing.Size(188, 20);
             this.dtpDataUrodzenia.TabIndex = 12;
             // 
-            // numWzrost
+            // btnEdytuj
             // 
-            this.numWzrost.Location = new System.Drawing.Point(10, 207);
-            this.numWzrost.Maximum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numWzrost.Name = "numWzrost";
-            this.numWzrost.Size = new System.Drawing.Size(188, 20);
-            this.numWzrost.TabIndex = 13;
-            // 
-            // numWaga
-            // 
-            this.numWaga.Location = new System.Drawing.Point(10, 251);
-            this.numWaga.Name = "numWaga";
-            this.numWaga.Size = new System.Drawing.Size(188, 20);
-            this.numWaga.TabIndex = 14;
+            this.btnEdytuj.Location = new System.Drawing.Point(339, 14);
+            this.btnEdytuj.Name = "btnEdytuj";
+            this.btnEdytuj.Size = new System.Drawing.Size(75, 23);
+            this.btnEdytuj.TabIndex = 5;
+            this.btnEdytuj.Text = "Edytuj";
+            this.btnEdytuj.UseVisualStyleBackColor = true;
+            this.btnEdytuj.Click += new System.EventHandler(this.btnEdytuj_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 335);
+            this.ClientSize = new System.Drawing.Size(560, 335);
+            this.Controls.Add(this.btnEdytuj);
             this.Controls.Add(this.gbSzczegolyZawodnika);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSciezka);
             this.Controls.Add(this.btnWczytaj);
             this.Controls.Add(this.lbDane);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Form1";
             this.gbSzczegolyZawodnika.ResumeLayout(false);
             this.gbSzczegolyZawodnika.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numWzrost)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWaga)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWzrost)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,7 +290,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNazwisko;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtImie;
+        private System.Windows.Forms.TextBox txtDataUrodzenia;
+        private System.Windows.Forms.Button btnEdytuj;
+        private Dodatki.ExTextBox txtImie;
     }
 }
 
