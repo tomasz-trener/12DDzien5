@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,13 +44,23 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtKraj = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNazwisko = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDataUrodzenia = new System.Windows.Forms.TextBox();
             this.dtpDataUrodzenia = new System.Windows.Forms.DateTimePicker();
-            this.txtKraj = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnNowy = new System.Windows.Forms.Button();
+            this.txtBlednieSformatowaneWiersze = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnUsun = new System.Windows.Forms.Button();
+            this.txtPotwierdzUsuniecie = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtImie = new P01AplikacjaZawodnicy.Dodatki.ExTextBox();
+            this.btnZapiszJako = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,6 +72,10 @@
             this.gbSzczegolyZawodnika.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWaga)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWzrost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -75,11 +90,14 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
+            this.splitContainer1.Panel2.Controls.Add(this.txtPotwierdzUsuniecie);
+            this.splitContainer1.Panel2.Controls.Add(this.btnUsun);
+            this.splitContainer1.Panel2.Controls.Add(this.btnNowy);
             this.splitContainer1.Panel2.Controls.Add(this.btnZapisz);
             this.splitContainer1.Panel2.Controls.Add(this.btnEdytuj);
-            this.splitContainer1.Panel2.Controls.Add(this.gbSzczegolyZawodnika);
-            this.splitContainer1.Size = new System.Drawing.Size(650, 549);
-            this.splitContainer1.SplitterDistance = 336;
+            this.splitContainer1.Size = new System.Drawing.Size(976, 549);
+            this.splitContainer1.SplitterDistance = 504;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -91,6 +109,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.btnZapiszJako);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             this.splitContainer2.Panel1.Controls.Add(this.txtSciezka);
             this.splitContainer2.Panel1.Controls.Add(this.btnWczytaj);
@@ -98,7 +117,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.lbDane);
-            this.splitContainer2.Size = new System.Drawing.Size(336, 549);
+            this.splitContainer2.Size = new System.Drawing.Size(504, 549);
             this.splitContainer2.SplitterDistance = 40;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -117,6 +136,7 @@
             this.txtSciezka.Name = "txtSciezka";
             this.txtSciezka.Size = new System.Drawing.Size(177, 20);
             this.txtSciezka.TabIndex = 12;
+            this.txtSciezka.Text = "C:\\dane\\zawodnicy.txt";
             this.txtSciezka.Click += new System.EventHandler(this.txtSciezka_Click);
             // 
             // btnWczytaj
@@ -135,15 +155,15 @@
             this.lbDane.FormattingEnabled = true;
             this.lbDane.Location = new System.Drawing.Point(0, 0);
             this.lbDane.Name = "lbDane";
-            this.lbDane.Size = new System.Drawing.Size(336, 505);
+            this.lbDane.Size = new System.Drawing.Size(504, 505);
             this.lbDane.TabIndex = 10;
             this.lbDane.SelectedIndexChanged += new System.EventHandler(this.lbDane_SelectedIndexChanged);
             // 
             // btnZapisz
             // 
-            this.btnZapisz.Location = new System.Drawing.Point(155, 12);
+            this.btnZapisz.Location = new System.Drawing.Point(178, 12);
             this.btnZapisz.Name = "btnZapisz";
-            this.btnZapisz.Size = new System.Drawing.Size(75, 23);
+            this.btnZapisz.Size = new System.Drawing.Size(52, 23);
             this.btnZapisz.TabIndex = 12;
             this.btnZapisz.Text = "Zapisz";
             this.btnZapisz.UseVisualStyleBackColor = true;
@@ -174,9 +194,9 @@
             this.gbSzczegolyZawodnika.Controls.Add(this.label2);
             this.gbSzczegolyZawodnika.Controls.Add(this.txtDataUrodzenia);
             this.gbSzczegolyZawodnika.Controls.Add(this.dtpDataUrodzenia);
-            this.gbSzczegolyZawodnika.Location = new System.Drawing.Point(16, 51);
+            this.gbSzczegolyZawodnika.Location = new System.Drawing.Point(20, 26);
             this.gbSzczegolyZawodnika.Name = "gbSzczegolyZawodnika";
-            this.gbSzczegolyZawodnika.Size = new System.Drawing.Size(214, 277);
+            this.gbSzczegolyZawodnika.Size = new System.Drawing.Size(214, 299);
             this.gbSzczegolyZawodnika.TabIndex = 10;
             this.gbSzczegolyZawodnika.TabStop = false;
             this.gbSzczegolyZawodnika.Text = "Zawodnik";
@@ -193,7 +213,7 @@
             this.numWaga.Name = "numWaga";
             this.numWaga.ReadOnly = true;
             this.numWaga.Size = new System.Drawing.Size(188, 20);
-            this.numWaga.TabIndex = 14;
+            this.numWaga.TabIndex = 6;
             // 
             // numWzrost
             // 
@@ -207,7 +227,7 @@
             this.numWzrost.Name = "numWzrost";
             this.numWzrost.ReadOnly = true;
             this.numWzrost.Size = new System.Drawing.Size(188, 20);
-            this.numWzrost.TabIndex = 13;
+            this.numWzrost.TabIndex = 5;
             this.numWzrost.Value = new decimal(new int[] {
             300,
             0,
@@ -250,6 +270,15 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Kraj";
             // 
+            // txtKraj
+            // 
+            this.txtKraj.Location = new System.Drawing.Point(10, 124);
+            this.txtKraj.Name = "txtKraj";
+            this.txtKraj.ReadOnly = true;
+            this.txtKraj.Size = new System.Drawing.Size(188, 20);
+            this.txtKraj.TabIndex = 3;
+            this.txtKraj.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKraj_KeyPress);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -266,6 +295,7 @@
             this.txtNazwisko.ReadOnly = true;
             this.txtNazwisko.Size = new System.Drawing.Size(188, 20);
             this.txtNazwisko.TabIndex = 2;
+            this.txtNazwisko.Validating += new System.ComponentModel.CancelEventHandler(this.txtNazwisko_Validating);
             // 
             // label2
             // 
@@ -282,7 +312,7 @@
             this.txtDataUrodzenia.Name = "txtDataUrodzenia";
             this.txtDataUrodzenia.ReadOnly = true;
             this.txtDataUrodzenia.Size = new System.Drawing.Size(188, 20);
-            this.txtDataUrodzenia.TabIndex = 15;
+            this.txtDataUrodzenia.TabIndex = 4;
             // 
             // dtpDataUrodzenia
             // 
@@ -292,15 +322,87 @@
             this.dtpDataUrodzenia.Size = new System.Drawing.Size(188, 20);
             this.dtpDataUrodzenia.TabIndex = 12;
             // 
-            // txtKraj
+            // errorProvider1
             // 
-            this.txtKraj.Location = new System.Drawing.Point(10, 124);
-            this.txtKraj.Name = "txtKraj";
-            this.txtKraj.ReadOnly = true;
-            this.txtKraj.Size = new System.Drawing.Size(188, 20);
-            this.txtKraj.TabIndex = 4;
-            this.txtKraj.TextChanged += new System.EventHandler(this.txtKraj_TextChanged);
-            this.txtKraj.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKraj_KeyPress);
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // btnNowy
+            // 
+            this.btnNowy.Location = new System.Drawing.Point(97, 12);
+            this.btnNowy.Name = "btnNowy";
+            this.btnNowy.Size = new System.Drawing.Size(75, 23);
+            this.btnNowy.TabIndex = 13;
+            this.btnNowy.Text = "Nowy";
+            this.btnNowy.UseVisualStyleBackColor = true;
+            this.btnNowy.Click += new System.EventHandler(this.btnNowy_Click);
+            // 
+            // txtBlednieSformatowaneWiersze
+            // 
+            this.txtBlednieSformatowaneWiersze.Location = new System.Drawing.Point(9, 29);
+            this.txtBlednieSformatowaneWiersze.Multiline = true;
+            this.txtBlednieSformatowaneWiersze.Name = "txtBlednieSformatowaneWiersze";
+            this.txtBlednieSformatowaneWiersze.Size = new System.Drawing.Size(223, 381);
+            this.txtBlednieSformatowaneWiersze.TabIndex = 14;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 13);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(151, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Błędnie sformatowane wiersze";
+            // 
+            // btnUsun
+            // 
+            this.btnUsun.Location = new System.Drawing.Point(245, 12);
+            this.btnUsun.Name = "btnUsun";
+            this.btnUsun.Size = new System.Drawing.Size(52, 23);
+            this.btnUsun.TabIndex = 16;
+            this.btnUsun.Text = "Usuń";
+            this.btnUsun.UseVisualStyleBackColor = true;
+            this.btnUsun.Click += new System.EventHandler(this.btnUsun_Click);
+            // 
+            // txtPotwierdzUsuniecie
+            // 
+            this.txtPotwierdzUsuniecie.Location = new System.Drawing.Point(303, 17);
+            this.txtPotwierdzUsuniecie.Name = "txtPotwierdzUsuniecie";
+            this.txtPotwierdzUsuniecie.Size = new System.Drawing.Size(52, 20);
+            this.txtPotwierdzUsuniecie.TabIndex = 17;
+            this.txtPotwierdzUsuniecie.Visible = false;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(16, 51);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(255, 442);
+            this.tabControl1.TabIndex = 18;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.gbSzczegolyZawodnika);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(247, 416);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Szczegóły";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.txtBlednieSformatowaneWiersze);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(247, 416);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Błędne wiersze";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // txtImie
             // 
@@ -309,20 +411,31 @@
             this.txtImie.Name = "txtImie";
             this.txtImie.ReadOnly = true;
             this.txtImie.Size = new System.Drawing.Size(188, 20);
-            this.txtImie.TabIndex = 16;
+            this.txtImie.TabIndex = 1;
             this.txtImie.TextChanged += new System.EventHandler(this.txtImie_TextChanged);
+            // 
+            // btnZapiszJako
+            // 
+            this.btnZapiszJako.Location = new System.Drawing.Point(397, 12);
+            this.btnZapiszJako.Name = "btnZapiszJako";
+            this.btnZapiszJako.Size = new System.Drawing.Size(75, 23);
+            this.btnZapiszJako.TabIndex = 14;
+            this.btnZapiszJako.Text = "Zapisz";
+            this.btnZapiszJako.UseVisualStyleBackColor = true;
+            this.btnZapiszJako.Click += new System.EventHandler(this.btnZapiszJako_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(650, 549);
+            this.ClientSize = new System.Drawing.Size(976, 549);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -334,6 +447,11 @@
             this.gbSzczegolyZawodnika.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWaga)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWzrost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -362,6 +480,16 @@
         private Dodatki.ExTextBox txtImie;
         private System.Windows.Forms.Button btnZapisz;
         private System.Windows.Forms.TextBox txtKraj;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button btnNowy;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtBlednieSformatowaneWiersze;
+        private System.Windows.Forms.Button btnUsun;
+        private System.Windows.Forms.TextBox txtPotwierdzUsuniecie;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btnZapiszJako;
     }
 }
 

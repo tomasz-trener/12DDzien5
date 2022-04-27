@@ -1,0 +1,8 @@
+﻿
+
+1) Microsoft SQL Server 2019 Express
+ - nazwa instancji (SqlExpress)
+ - rodzaj autentykacji : Windows , SqlServer authentication      sa , ...
+
+2) SQL Server Management Studio (SSMS)
+

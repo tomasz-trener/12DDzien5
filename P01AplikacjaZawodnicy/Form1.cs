@@ -8,15 +8,23 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace P01AplikacjaZawodnicy
 {
+    enum TrybFormatki
+    {
+        Edycja,
+        Nowy, 
+        Usuwanie
+    }
     public partial class Form1 : Form
     {
         ManagerZawodnikow mz;
         bool edycjaAktywna = false;
+        TrybFormatki? trybFormatki;
         public Form1()
         {
             InitializeComponent();
@@ -65,6 +73,8 @@ namespace P01AplikacjaZawodnicy
             // zastosowanie databinding 
             lbDane.DataSource = zawodnicy;
             lbDane.DisplayMember = "Wiersz";
+
+            txtBlednieSformatowaneWiersze.Text = String.Join("\n", mz.BledneWiersze);
         }
 
         private void lbDane_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,6 +120,7 @@ namespace P01AplikacjaZawodnicy
                 ZablokujZawodnika();
 
             edycjaAktywna = !edycjaAktywna;
+            trybFormatki = TrybFormatki.Edycja;
         }
 
         public void ZablokujZawodnika()
@@ -169,7 +180,13 @@ namespace P01AplikacjaZawodnicy
             // krok 1 : 
             // kto jest zaznaczony 
             // mz.Zawodnicy[2]
-            Zawodnik z = (Zawodnik)lbDane.SelectedItem;
+            Zawodnik z;
+            if (trybFormatki == TrybFormatki.Edycja)
+                z = (Zawodnik)lbDane.SelectedItem;
+            else if (trybFormatki == TrybFormatki.Nowy)
+                z = new Zawodnik();
+            else
+                throw new Exception("Nieznany tryb formatki");
 
             z.Imie = txtImie.Text;
             z.Nazwisko = txtNazwisko.Text;
@@ -178,9 +195,17 @@ namespace P01AplikacjaZawodnicy
             z.Waga = Convert.ToInt32(numWaga.Value);
             z.Wzrost = Convert.ToInt32(numWzrost.Value);
 
-            mz.EdytujZawodnika(z);
+           
+            if (trybFormatki == TrybFormatki.Edycja)
+                mz.EdytujZawodnika(z);
+            else if (trybFormatki == TrybFormatki.Nowy)
+                mz.StworzNowegoZawodnika(z);
+            else
+                throw new Exception("Nieznany tryb formatki");
+
             mz.Zapisz();
             Odswiez();
+            trybFormatki = TrybFormatki.Edycja;
         }
 
         //private void txtKraj_Validating(object sender, CancelEventArgs e)
@@ -193,16 +218,100 @@ namespace P01AplikacjaZawodnicy
 
         private void txtKraj_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (txtKraj.Text.Length > 3)
+            if (e.KeyChar != (char)8 && txtKraj.Text.Length == 3)
             {
                 e.Handled = true;
                 //MessageBox.Show("Niepoprawny format kraju");
             }
          }
 
-        private void txtKraj_TextChanged(object sender, EventArgs e)
+        private bool WlasnaWalidacja(string s)
         {
-          
+
+            return false;
+        }
+
+        private void txtNazwisko_Validating(object sender, CancelEventArgs e)
+        {
+            
+            if (WlasnaWalidacja(txtNazwisko.Text))
+            //if(Regex.IsMatch(txtNazwisko.Text, "[A-Za-z0-9]"))
+            {
+                e.Cancel = true;
+                txtNazwisko.Focus();
+                errorProvider1.SetError(txtNazwisko, "Nazwisko nie moze byc puste");
+                btnZapisz.Enabled = false;
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtNazwisko, "");
+                btnZapisz.Enabled = true;
+            }
+        }
+
+        private void btnNowy_Click(object sender, EventArgs e)
+        {
+            OdblokujZawodnika();
+
+            //txtImie.Text = "";
+            //txtNazwisko.Text = "";
+            foreach (var item in gbSzczegolyZawodnika.Controls)
+            {
+                if (item is TextBox)
+                    ((TextBox)item).Text ="";
+
+                if (item is NumericUpDown)
+                    ((NumericUpDown)item).Value = 0;
+            }
+
+            dtpDataUrodzenia.Value = DateTime.Now;
+            trybFormatki = TrybFormatki.Nowy;
+        }
+
+        private void btnUsun_Click(object sender, EventArgs e)
+        {
+            //Wersja podstawowa z prostym pytaniem
+            //DialogResult dr= MessageBox.Show("Czy napewno chcesz usunać zawodnika?", "Pytanie",
+            //     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // if (dr== DialogResult.Yes)
+            // {
+            //     Zawodnik zaznaczony = (Zawodnik)lbDane.SelectedItem;
+
+            //     mz.UsunZawodnika(zaznaczony);
+            //     mz.Zapisz();
+            //     Odswiez();
+            // }
+
+            if (trybFormatki != TrybFormatki.Usuwanie)
+            {
+                MessageBox.Show("Potwierdz usuniecie piszą 'Tak'", "Prosba",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                txtPotwierdzUsuniecie.Visible = true;
+                trybFormatki = TrybFormatki.Usuwanie;
+            }else if(trybFormatki == TrybFormatki.Usuwanie && txtPotwierdzUsuniecie.Text.ToLower()=="tak")
+            {
+                Zawodnik zaznaczony = (Zawodnik)lbDane.SelectedItem;
+                mz.UsunZawodnika(zaznaczony);
+                mz.Zapisz();
+                Odswiez();
+                trybFormatki = null;
+                txtPotwierdzUsuniecie.Visible = false;
+            }
+
+            
+
+        }
+
+        private void btnZapiszJako_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog s = new SaveFileDialog();
+            s.ShowDialog();
+            s.Filter = "pliki tekstowe (*.txt)|*.txt";
+
+            mz.Zapisz(s.FileName);
         }
 
 

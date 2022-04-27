@@ -133,8 +133,8 @@ namespace P01AplikacjaZawodnicy.Repositories
                 {
                     Zawodnik ityZawodnik = new Zawodnik();
                     ityZawodnik.Id = Convert.ToInt32(komorki[0]);
-                    //if(!string.IsNullOrEmpty(komorki[1]))
-                    ityZawodnik.Id_trenera = Convert.ToInt32(komorki[1]);
+                    if(!string.IsNullOrEmpty(komorki[1]))
+                        ityZawodnik.Id_trenera = Convert.ToInt32(komorki[1]);
 
                     ityZawodnik.Imie = komorki[2];
                     ityZawodnik.Nazwisko = komorki[3];
@@ -204,6 +204,11 @@ namespace P01AplikacjaZawodnicy.Repositories
 
         public void Zapisz()
         {
+            Zapisz(sciezka);
+        }
+
+        public void Zapisz(string sciezka)
+        {
             const string naglowek = "id_zawodnika;id_trenera;imie;nazwisko;kraj;data urodzenia;wzrost;waga";
 
             string[] wiersze = new string[zawodnicy.Length + 1];
@@ -214,5 +219,28 @@ namespace P01AplikacjaZawodnicy.Repositories
             File.WriteAllLines(sciezka, wiersze);
         }
 
+        internal void StworzNowegoZawodnika(Zawodnik z)
+        {
+            List<Zawodnik> zw = zawodnicy.ToList();
+            zw.Add(z);
+            zawodnicy = zw.ToArray();
+            z.Id = zawodnicy.Max(x => x.Id) + 1;
+
+        }
+
+        internal void UsunZawodnika(Zawodnik zaznaczony)
+        {
+
+            //List<Zawodnik> zw = zawodnicy.ToList();
+            //for (int i = 0; i < zawodnicy.Length; i++)
+            //    if (zaznaczony.Id == zawodnicy[i].Id)
+            //    {
+            //        zw.Remove(zw[i]);
+            //        break;
+            //    }
+            List<Zawodnik> zw = zawodnicy.ToList();
+            zw.Remove(zaznaczony);
+            zawodnicy = zw.ToArray();
+        }
     }
 }
